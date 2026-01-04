@@ -96,26 +96,29 @@ for idx, (q, _) in enumerate(questions):
 
     cols = st.columns(5)
 
-    for val in range(1, 6):
-        with cols[val - 1]:
+for val in range(1, 6):
+    with cols[val - 1]:
 
-            # Button click → overwrite previous selection (exclusive by design)
-            if st.button(str(val), key=f"q{idx}_{val}"):
-                st.session_state.responses[idx] = val
+        st.button(
+            str(val),
+            key=f"q{idx}_{val}",
+            on_click=set_response,
+            args=(idx, val),
+        )
 
-            # Red indicator (ONLY one can ever match)
-            if st.session_state.responses[idx] == val:
-                st.markdown(
-                    """
-                    <div style="
-                        height:6px;
-                        background-color:#ff2b2b;
-                        margin-top:4px;
-                        border-radius:4px;">
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+        if st.session_state.responses[idx] == val:
+            st.markdown(
+                """
+                <div style="
+                    height:6px;
+                    background-color:#ff2b2b;
+                    margin-top:4px;
+                    border-radius:4px;">
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
 
 # ---------------- SUBMIT BUTTON ----------------
 all_answered = (
