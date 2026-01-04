@@ -90,6 +90,7 @@ st.header("Rate each statement (1 = Strongly Disagree, 5 = Strongly Agree)")
 for idx, (q, _) in enumerate(questions):
     st.write(f"**{q}**")
 
+    # Initialize response
     if idx not in st.session_state.responses:
         st.session_state.responses[idx] = 0
 
@@ -97,16 +98,12 @@ for idx, (q, _) in enumerate(questions):
 
     for val in range(1, 6):
         with cols[val - 1]:
-            # BUTTON FIRST
-            clicked = st.button(
-                str(val),
-                key=f"q{idx}_{val}",
-            )
 
-            if clicked:
+            # Button click → overwrite previous selection (exclusive by design)
+            if st.button(str(val), key=f"q{idx}_{val}"):
                 st.session_state.responses[idx] = val
 
-            # RED INDICATOR AFTER BUTTON (CRITICAL FIX)
+            # Red indicator (ONLY one can ever match)
             if st.session_state.responses[idx] == val:
                 st.markdown(
                     """
