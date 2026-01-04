@@ -94,15 +94,31 @@ for idx, (q, _) in enumerate(questions):
         st.session_state.responses[idx] = 0
 
     cols = st.columns(5)
+
     for val in range(1, 6):
-        with cols[val-1]:
+        with cols[val - 1]:
+            # BUTTON FIRST
+            clicked = st.button(
+                str(val),
+                key=f"q{idx}_{val}",
+            )
+
+            if clicked:
+                st.session_state.responses[idx] = val
+
+            # RED INDICATOR AFTER BUTTON (CRITICAL FIX)
             if st.session_state.responses[idx] == val:
                 st.markdown(
-                    '<div style="height:6px;background-color:red;margin-bottom:4px;border-radius:3px;"></div>',
+                    """
+                    <div style="
+                        height:6px;
+                        background-color:#ff2b2b;
+                        margin-top:4px;
+                        border-radius:4px;">
+                    </div>
+                    """,
                     unsafe_allow_html=True
                 )
-            if st.button(str(val), key=f"q{idx}_{val}"):
-                st.session_state.responses[idx] = val
 
 # ---------------- SUBMIT BUTTON ----------------
 all_answered = (
