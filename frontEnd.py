@@ -228,6 +228,6 @@ Emotional Stability: {scores['ES']}
 # -------------------------------------------------
 if st.session_state.email_sent:
     st.success(
-        "Your results have been securely sent to Tripti Chapper Careers Counselling.\n"
+        "Your results have been securely sent to The Administrator.\n"
         "Please contact them to receive your personalized report."
     )
